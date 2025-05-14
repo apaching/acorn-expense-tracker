@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { signUpWithEmail } from "@/lib/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { signUpWithEmail } from "@/lib/auth";
 
 export function SignupForm() {
   const router = useRouter();
@@ -39,12 +39,20 @@ export function SignupForm() {
 
     try {
       await signUpWithEmail(formData.name, formData.email, formData.password);
-
+      localStorage.setItem("signup_email", formData.email);
       router.replace("/confirm-email");
-    } catch (error: any) {
-      setError(error.message ?? "Something went wrong");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Something went wrong");
+      }
     }
   };
+
+  useEffect(() => {
+    localStorage.removeItem("signup_email");
+  }, []);
 
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit}>

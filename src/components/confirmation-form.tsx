@@ -1,14 +1,26 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
 export function ConfirmationForm() {
   const router = useRouter();
 
+  const [email, setEmail] = useState<string | null>(null);
+
+  const handleButton = () => {
+    router.replace("/");
+  };
+
   useEffect(() => {
-    router.prefetch("/");
+    const storedEmail = localStorage.getItem("signup_email");
+
+    if (!storedEmail) {
+      router.replace("/");
+    } else {
+      setEmail(storedEmail);
+    }
   }, []);
 
   return (
@@ -20,15 +32,10 @@ export function ConfirmationForm() {
           <span className="font-bold text-primary text-base">Acorn</span>,
           confirm your email address with the email we sent to:
         </p>
-        <span className="font-bold">example@email.com</span>
+        <span className="font-bold">{email}</span>
       </div>
       <div>
-        <Button
-          className="w-full"
-          onClick={() => {
-            router.replace("/");
-          }}
-        >
+        <Button className="w-full" onClick={handleButton}>
           Go back to Login Page
         </Button>
       </div>
