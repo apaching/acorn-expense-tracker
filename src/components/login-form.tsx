@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -74,7 +75,9 @@ export function LoginForm() {
       <div className="text-center text-sm">
         {" "}
         Don&apos;t have an account?{" "}
-        <a className="underline underline-offset-4">Sign up</a>
+        <Link href={"/signup"} className="underline underline-offset-4">
+          Sign up
+        </Link>
       </div>
     </form>
   );
