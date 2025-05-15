@@ -1,4 +1,6 @@
-import { supabase } from "@/lib/supabaseClient";
+import { createClient } from "@/utils/supabase/client";
+
+const supabase = createClient();
 
 export async function signUpWithEmail(
   name: string,
@@ -13,6 +15,17 @@ export async function signUpWithEmail(
         full_name: name,
       },
     },
+  });
+
+  if (error) throw error;
+
+  return data;
+}
+
+export async function signInWithEmail(email: string, password: string) {
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: password,
   });
 
   if (error) throw error;

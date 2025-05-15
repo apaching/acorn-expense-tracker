@@ -1,11 +1,46 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { signInWithEmail } from "@/lib/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 export function LoginForm() {
+  const router = useRouter();
+
+  const [formData, setFormdata] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormdata((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      await signInWithEmail(formData.email, formData.password);
+      router.replace("/dashboard");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.log(error);
+        setError(error.message);
+      } else {
+        setError("Something went wrong");
+      }
+    }
+  };
+
+  useEffect(() => {
+    localStorage.removeItem("signup_email");
+  }, []);
+
   return (
-    <form className="flex flex-col gap-6">
+    <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
       <div className="flex flex-col gap-2 mb-4">
         <h1 className="text-2xl font-bold">Welcome Back</h1>
         <p className="text-balance text-muted-foreground text-sm">
@@ -22,6 +57,8 @@ export function LoginForm() {
             type="email"
             placeholder="email@example.com"
             required
+            value={formData.email}
+            onChange={handleChange}
           />
         </div>
         <div className="grid gap-2">
@@ -36,7 +73,13 @@ export function LoginForm() {
               Forgot your password?
             </a>
           </div>
-          <Input id="password" type="password" required />
+          <Input
+            id="password"
+            type="password"
+            required
+            value={formData.password}
+            onChange={handleChange}
+          />
         </div>
         <Button className="w-full">Login</Button>
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
