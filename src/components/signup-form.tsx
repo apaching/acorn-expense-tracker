@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUpWithEmail } from "@/lib/auth";
 import { Input } from "@/components/ui/input";
