@@ -21,7 +21,7 @@ export function ConfirmationForm() {
     } else {
       setEmail(storedEmail);
     }
-  }, []);
+  }, [router]);
 
   return (
     <div className="flex flex-col gap-14">

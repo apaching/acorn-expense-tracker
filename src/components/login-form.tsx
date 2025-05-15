@@ -39,6 +39,9 @@ export function LoginForm() {
     localStorage.removeItem("signup_email");
   }, []);
 
+  // Temporary
+  console.log(error);
+
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
       <div className="flex flex-col gap-2 mb-4">
