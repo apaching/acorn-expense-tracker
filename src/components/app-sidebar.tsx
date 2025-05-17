@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   Sidebar,
@@ -8,12 +10,24 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarGroupContent,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import { Nut } from "lucide-react";
+import { signOut } from "@/lib/auth";
+import { LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { sidebarItems } from "@/constants/sidebar-items";
 
 export function AppSidebar() {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    signOut();
+
+    router.replace("/login");
+  };
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -51,6 +65,21 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <div
+                onClick={handleLogout}
+                className="gap-3 px-3 py-2 items-center flex hover:cursor-pointer"
+              >
+                <LogOut className="text-muted-foreground" />
+                <span>Logout</span>
+              </div>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }
