@@ -1,8 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { Label, Pie, PieChart } from "recharts";
-
 import {
   Card,
   CardTitle,
@@ -18,6 +16,7 @@ import {
   ChartLegendContent,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { Label, Pie, PieChart } from "recharts";
 
 function CashFlowChart() {
   const chartData = [
