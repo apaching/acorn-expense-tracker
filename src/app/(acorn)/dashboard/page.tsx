@@ -13,7 +13,7 @@ export default function Dashboard() {
               Hello <span className="text-primary">Yves</span>,
             </h1>
             <p className="text-balance text-lg text-muted-foreground">
-              Here's a summary of your recent expenses.
+              Here&apos;s a summary of your recent expenses.
             </p>
           </div>
           <div className="flex flex-col gap-6">

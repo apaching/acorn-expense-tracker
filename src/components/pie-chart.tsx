@@ -46,7 +46,7 @@ function CashFlowChart() {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>This month's cash flow</CardTitle>
+        <CardTitle>This month&apos;s cash flow</CardTitle>
         <CardDescription>January 2024</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -159,7 +159,7 @@ function ExpensesChart() {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
-        <CardTitle>This month's expenses</CardTitle>
+        <CardTitle>This month&apos;s expenses</CardTitle>
         <CardDescription>January 2024</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
