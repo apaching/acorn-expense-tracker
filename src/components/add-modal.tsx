@@ -50,6 +50,7 @@ export function AddModal() {
     note: "",
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (field: keyof typeof transaction, value: any) => {
     setTransaction((prev) => ({
       ...prev,

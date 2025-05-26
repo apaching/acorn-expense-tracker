@@ -2,7 +2,7 @@ import {
   Table,
   TableRow,
   TableBody,
-  TableCell,
+  // TableCell,
   TableHead,
   TableHeader,
   TableCaption,
