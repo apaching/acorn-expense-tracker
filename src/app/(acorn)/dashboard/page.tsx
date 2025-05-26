@@ -1,16 +1,33 @@
 import { Separator } from "@/components/ui/separator";
+import { createClient } from "@/utils/supabase/server";
 import { MonthlyExpensesChart } from "@/components/bar-chart";
 import { CashFlowChart, ExpensesChart } from "@/components/pie-chart";
 import { RecentTransactions } from "@/components/recent-transactions";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const { data: userData } = await supabase
+    .from("users")
+    .select("*")
+    .eq("id", user?.id)
+    .single();
+
   return (
     <div className="grid w-full h-full grid-cols-[30%_70%]">
       <div className="flex flex-row">
         <div className="flex flex-col gap-12 p-10 my-10 flex-1">
           <div className="flex flex-col gap-1">
             <h1 className="text-4xl font-bold text-foreground">
-              Hello <span className="text-primary">Yves</span>,
+              Hello{" "}
+              <span className="text-primary">
+                {userData?.full_name.split(" ")[0]}
+              </span>
+              ,
             </h1>
             <p className="text-balance text-lg text-muted-foreground">
               Here&apos;s a summary of your recent expenses.

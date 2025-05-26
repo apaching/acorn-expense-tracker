@@ -10,28 +10,28 @@ import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-  { month: "July", desktop: 186, mobile: 80 },
-  { month: "August", desktop: 305, mobile: 200 },
-  { month: "September", desktop: 237, mobile: 120 },
-  { month: "October", desktop: 73, mobile: 190 },
-  { month: "November", desktop: 209, mobile: 130 },
-  { month: "December", desktop: 214, mobile: 140 },
+  { month: "January", incoming: 186, outgoing: 80 },
+  { month: "February", incoming: 305, outgoing: 200 },
+  { month: "March", incoming: 237, outgoing: 120 },
+  { month: "April", incoming: 73, outgoing: 190 },
+  { month: "May", incoming: 209, outgoing: 130 },
+  { month: "June", incoming: 214, outgoing: 140 },
+  { month: "July", incoming: 186, outgoing: 80 },
+  { month: "August", incoming: 305, outgoing: 200 },
+  { month: "September", incoming: 237, outgoing: 120 },
+  { month: "October", incoming: 73, outgoing: 190 },
+  { month: "November", incoming: 209, outgoing: 130 },
+  { month: "December", incoming: 214, outgoing: 140 },
 ];
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "hsl(var(--chart-1))",
+  incoming: {
+    label: "Incoming",
+    color: "hsl(var(--chart-incoming)",
   },
-  mobile: {
-    label: "Mobile",
-    color: "hsl(var(--chart-2))",
+  outgoing: {
+    label: "Outgoing",
+    color: "hsl(var(--chart-outgoing))",
   },
 } satisfies ChartConfig;
 
@@ -59,8 +59,8 @@ function MonthlyExpensesChart() {
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="desktop" fill="var(--chart-incoming)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--chart-outgoing)" radius={4} />
+            <Bar dataKey="incoming" fill="var(--chart-incoming)" radius={4} />
+            <Bar dataKey="outgoing" fill="var(--chart-outgoing)" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>

@@ -17,7 +17,7 @@ import { signOut } from "@/lib/auth";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
-import { sidebarItems } from "@/constants/sidebar-items";
+import { sidebarItems } from "@/constants/constants";
 
 export function AppSidebar() {
   const router = useRouter();
