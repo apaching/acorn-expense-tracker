@@ -7,7 +7,7 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
 export async function addTransaction(newTransaction: {
   user_id: string;
   amount: number;
-  type: "income" | "expense";
+  type: "incoming" | "outgoing";
   category: string;
   date: Date;
   note?: string;

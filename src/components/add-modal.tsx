@@ -37,7 +37,11 @@ const initialTransaction = {
   note: "",
 };
 
-export function AddModal() {
+interface Props {
+  onAdd: () => void;
+}
+
+export function AddModal({ onAdd }: Props) {
   const supabase = createClient();
 
   const [open, setOpen] = useState(false);
@@ -67,7 +71,7 @@ export function AddModal() {
     await addTransaction({
       user_id: transaction.userId!,
       amount: Number(transaction.amount),
-      type: transaction.type === "incoming" ? "income" : "expense",
+      type: transaction.type === "incoming" ? "incoming" : "outgoing",
       category: transaction.category,
       date: transaction.date!,
       note: transaction.note,
@@ -75,6 +79,7 @@ export function AddModal() {
 
     setTransaction(initialTransaction);
     setOpen(false);
+    onAdd();
   };
 
   useEffect(() => {

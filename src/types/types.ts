@@ -2,7 +2,7 @@ export interface Transaction {
   id: string;
   user_id: string;
   amount: number;
-  type: "income" | "expense";
+  type: "incoming" | "outgoing";
   category: string;
   date: Date;
   note?: string;
