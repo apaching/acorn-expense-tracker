@@ -21,9 +21,10 @@ import { Label, Pie, PieChart } from "recharts";
 interface Props {
   incoming: number;
   outgoing: number;
+  net: number;
 }
 
-function CashFlowChartClient({ incoming, outgoing }: Props) {
+function CashFlowChartClient({ incoming, outgoing, net }: Props) {
   const now = new Date();
   const monthAndYear = now.toLocaleString("default", {
     month: "long",
@@ -56,10 +57,6 @@ function CashFlowChartClient({ incoming, outgoing }: Props) {
       color: "hsl(var(--chart-outgoing))",
     },
   } satisfies ChartConfig;
-
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.amount, 0);
-  }, []);
 
   return (
     <Card className="flex flex-col">
@@ -99,14 +96,14 @@ function CashFlowChartClient({ incoming, outgoing }: Props) {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {net.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Total
+                          Net Gain
                         </tspan>
                       </text>
                     );

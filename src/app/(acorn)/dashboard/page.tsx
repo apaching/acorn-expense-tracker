@@ -35,7 +35,7 @@ export default async function Dashboard() {
           </div>
           <div className="flex flex-col gap-6">
             <CashFlowChart userId={user?.id as string} />
-            <ExpensesChart />
+            <ExpensesChart userId={user?.id as string} />
           </div>
         </div>
         <div className="py-10">

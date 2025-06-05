@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
   Card,
   CardTitle,
@@ -14,17 +13,44 @@ import {
   ChartContainer,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import * as React from "react";
 import { Label, Pie, PieChart } from "recharts";
 
-export default function ExpensesChartClient() {
+interface Props {
+  f_and_d: number;
+  transport: number;
+  groceries: number;
+  bills: number;
+  luxury: number;
+  healthcare: number;
+  others: number;
+  total: number;
+}
+
+function ExpensesChartClient({
+  f_and_d,
+  transport,
+  groceries,
+  bills,
+  luxury,
+  healthcare,
+  others,
+  total,
+}: Props) {
+  const now = new Date();
+  const monthAndYear = now.toLocaleString("default", {
+    month: "long",
+    year: "numeric",
+  });
+
   const chartData = [
-    { type: "foods_and_drinks", amount: 275, fill: "var(--chart-1)" },
-    { type: "transport", amount: 200, fill: "var(--chart-2)" },
-    { type: "groceries", amount: 275, fill: "var(--chart-3)" },
-    { type: "bills", amount: 200, fill: "var(--chart-4)" },
-    { type: "luxury", amount: 275, fill: "var(--chart-5)" },
-    { type: "healthcare", amount: 275, fill: "var(--chart-6)" },
-    { type: "others", amount: 200, fill: "var(--chart-7)" },
+    { type: "foods_and_drinks", amount: f_and_d, fill: "var(--chart-1)" },
+    { type: "transport", amount: transport, fill: "var(--chart-2)" },
+    { type: "groceries", amount: groceries, fill: "var(--chart-3)" },
+    { type: "bills", amount: bills, fill: "var(--chart-4)" },
+    { type: "luxury", amount: luxury, fill: "var(--chart-5)" },
+    { type: "healthcare", amount: healthcare, fill: "var(--chart-6)" },
+    { type: "others", amount: others, fill: "var(--chart-7)" },
   ];
 
   const chartConfig = {
@@ -61,15 +87,11 @@ export default function ExpensesChartClient() {
     },
   } satisfies ChartConfig;
 
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.amount, 0);
-  }, []);
-
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
         <CardTitle>This month&apos;s expenses</CardTitle>
-        <CardDescription>January 2024</CardDescription>
+        <CardDescription>{monthAndYear}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -103,7 +125,7 @@ export default function ExpensesChartClient() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {total.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
@@ -124,3 +146,29 @@ export default function ExpensesChartClient() {
     </Card>
   );
 }
+
+function EmptyExpensesChart() {
+  const now = new Date();
+  const monthAndYear = now.toLocaleString("default", {
+    month: "long",
+    year: "numeric",
+  });
+
+  return (
+    <Card className="flex flex-col">
+      <CardHeader className="items-center pb-0">
+        <CardTitle>This month&apos;s cash flow</CardTitle>
+        <CardDescription>{monthAndYear}</CardDescription>
+      </CardHeader>
+      <CardContent className="flex-1 pb-0">
+        <div className="mx-auto flex aspect-square max-h-[250px] items-center justify-center">
+          <h1 className="text-sm font-semibold">
+            No transactions yet for this month.
+          </h1>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+export { ExpensesChartClient, EmptyExpensesChart };
