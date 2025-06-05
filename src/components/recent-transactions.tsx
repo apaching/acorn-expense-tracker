@@ -7,10 +7,10 @@ import {
   TableHeader,
   TableCaption,
 } from "@/components/ui/table";
-import { createClient } from "@/utils/supabase/server";
-import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 import { Transaction } from "@/types/types";
 import { capitalizeFirstLetter } from "@/lib/utils";
+import { createClient } from "@/utils/supabase/server";
+import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 
 interface Props {
   userId: string;
@@ -24,7 +24,7 @@ async function RecentTransactions({ userId }: Props) {
     .select("*")
     .eq("user_id", userId)
     .order("date", { ascending: false })
-    .limit(10);
+    .limit(8);
 
   return (
     <Card className="h-full">
@@ -47,7 +47,7 @@ async function RecentTransactions({ userId }: Props) {
               <TableRow key={transaction.id}>
                 <TableCell>
                   <div className="flex flex-col">
-                    <span className="font-medium text-sm">
+                    <span className="text-sm font-medium">
                       {transaction.category}
                     </span>
                     <span

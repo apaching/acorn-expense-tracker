@@ -18,9 +18,9 @@ export default async function Dashboard() {
     .single();
 
   return (
-    <div className="grid w-full h-full grid-cols-[30%_70%]">
+    <div className="grid h-full w-full grid-cols-[30%_70%]">
       <div className="flex flex-row">
-        <div className="flex flex-col gap-12 p-10 my-10 flex-1">
+        <div className="my-10 flex flex-1 flex-col gap-12 p-10">
           <div className="flex flex-col gap-1">
             <h1 className="text-4xl font-bold text-foreground">
               Hello{" "}
@@ -29,13 +29,13 @@ export default async function Dashboard() {
               </span>
               ,
             </h1>
-            <p className="text-balance text-lg text-muted-foreground">
+            <p className="text-lg text-balance text-muted-foreground">
               Here&apos;s a summary of your recent expenses.
             </p>
           </div>
           <div className="flex flex-col gap-6">
-            <CashFlowChart />
-            <ExpensesChart />
+            <CashFlowChart userId={user?.id as string} />
+            <ExpensesChart userId={user?.id as string} />
           </div>
         </div>
         <div className="py-10">
@@ -43,7 +43,7 @@ export default async function Dashboard() {
         </div>
       </div>
       <div className="flex flex-col items-center">
-        <div className="flex flex-col gap-8 py-10 my-11 h-full">
+        <div className="my-11 flex h-full flex-col gap-8 py-10">
           <MonthlyExpensesChart />
           <RecentTransactions userId={user?.id as string} />
         </div>
