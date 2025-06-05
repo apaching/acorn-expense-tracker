@@ -37,7 +37,7 @@ async function CashFlowChart({ userId }: Props) {
   return <CashFlowChartClient incoming={incoming} outgoing={outgoing} />;
 }
 
-function ExpensesChart({ userId }: Props) {
+function ExpensesChart() {
   return <ExpensesChartClient />;
 }
 

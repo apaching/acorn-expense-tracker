@@ -10,10 +10,8 @@ import {
 } from "@/components/ui/card";
 import {
   ChartConfig,
-  ChartLegend,
   ChartTooltip,
   ChartContainer,
-  ChartLegendContent,
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Label, Pie, PieChart } from "recharts";
