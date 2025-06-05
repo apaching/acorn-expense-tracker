@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { createClient } from "@/utils/supabase/server";
-import { MonthlyExpensesChart } from "@/components/bar-chart";
+import { MonthlyExpensesChart } from "@/components/monthly-expenses";
 import { RecentTransactions } from "@/components/recent-transactions";
 import { CashFlowChart, ExpensesChart } from "@/components/pie-chart";
 
@@ -44,12 +44,10 @@ export default async function Dashboard() {
       </div>
       <div className="flex flex-col items-center">
         <div className="my-11 flex h-full flex-col gap-8 py-10">
-          <MonthlyExpensesChart />
+          <MonthlyExpensesChart userId={user?.id as string} />
           <RecentTransactions userId={user?.id as string} />
         </div>
       </div>
     </div>
   );
 }
-
-// Test

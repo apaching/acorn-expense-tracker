@@ -9,33 +9,66 @@ import {
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const chartData = [
-  { month: "January", incoming: 186, outgoing: 80 },
-  { month: "February", incoming: 305, outgoing: 200 },
-  { month: "March", incoming: 237, outgoing: 120 },
-  { month: "April", incoming: 73, outgoing: 190 },
-  { month: "May", incoming: 209, outgoing: 130 },
-  { month: "June", incoming: 214, outgoing: 140 },
-  { month: "July", incoming: 186, outgoing: 80 },
-  { month: "August", incoming: 305, outgoing: 200 },
-  { month: "September", incoming: 237, outgoing: 120 },
-  { month: "October", incoming: 73, outgoing: 190 },
-  { month: "November", incoming: 209, outgoing: 130 },
-  { month: "December", incoming: 214, outgoing: 140 },
-];
+interface MonthlyTransaction {
+  incoming: number;
+  outgoing: number;
+}
 
-const chartConfig = {
-  incoming: {
-    label: "Incoming",
-    color: "hsl(var(--chart-incoming)",
-  },
-  outgoing: {
-    label: "Outgoing",
-    color: "hsl(var(--chart-outgoing))",
-  },
-} satisfies ChartConfig;
+interface Props {
+  jan: MonthlyTransaction;
+  feb: MonthlyTransaction;
+  mar: MonthlyTransaction;
+  apr: MonthlyTransaction;
+  may: MonthlyTransaction;
+  jun: MonthlyTransaction;
+  jul: MonthlyTransaction;
+  aug: MonthlyTransaction;
+  sep: MonthlyTransaction;
+  oct: MonthlyTransaction;
+  nov: MonthlyTransaction;
+  dec: MonthlyTransaction;
+}
 
-function MonthlyExpensesChart() {
+function BarChartClient({
+  jan,
+  feb,
+  mar,
+  apr,
+  may,
+  jun,
+  jul,
+  aug,
+  sep,
+  oct,
+  nov,
+  dec,
+}: Props) {
+  const chartData = [
+    { month: "January", incoming: jan.incoming, outgoing: jan.outgoing },
+    { month: "February", incoming: feb.incoming, outgoing: feb.outgoing },
+    { month: "March", incoming: mar.incoming, outgoing: mar.outgoing },
+    { month: "April", incoming: apr.incoming, outgoing: apr.outgoing },
+    { month: "May", incoming: may.incoming, outgoing: may.outgoing },
+    { month: "June", incoming: jun.incoming, outgoing: jun.outgoing },
+    { month: "July", incoming: jul.incoming, outgoing: jul.outgoing },
+    { month: "August", incoming: aug.incoming, outgoing: aug.outgoing },
+    { month: "September", incoming: sep.incoming, outgoing: sep.outgoing },
+    { month: "October", incoming: oct.incoming, outgoing: oct.outgoing },
+    { month: "November", incoming: nov.incoming, outgoing: nov.outgoing },
+    { month: "December", incoming: dec.incoming, outgoing: dec.outgoing },
+  ];
+
+  const chartConfig = {
+    incoming: {
+      label: "Incoming",
+      color: "hsl(var(--chart-incoming)",
+    },
+    outgoing: {
+      label: "Outgoing",
+      color: "hsl(var(--chart-outgoing))",
+    },
+  } satisfies ChartConfig;
+
   return (
     <Card className="w-full">
       <CardHeader>
@@ -44,7 +77,7 @@ function MonthlyExpensesChart() {
       <CardContent>
         <ChartContainer
           config={chartConfig}
-          className="lg:w-[1025px] h-[250px]"
+          className="h-[250px] lg:w-[1025px]"
         >
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
@@ -68,4 +101,4 @@ function MonthlyExpensesChart() {
   );
 }
 
-export { MonthlyExpensesChart };
+export { BarChartClient };
