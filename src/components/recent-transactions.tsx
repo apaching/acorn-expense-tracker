@@ -31,7 +31,7 @@ async function RecentTransactions({ userId }: Props) {
       <CardHeader>
         <CardTitle>Recent Transactions</CardTitle>
       </CardHeader>
-      <CardContent className="py-2">
+      <CardContent className="py-6">
         <Table>
           <TableCaption>A list of your most recent transactions.</TableCaption>
           <TableHeader>

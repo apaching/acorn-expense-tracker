@@ -28,15 +28,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { createClient } from "@/utils/supabase/client";
 import { incomingCategories, outgoingCategories } from "@/constants/constants";
 
-const initialTransaction = {
-  userId: null as string | null,
-  amount: "",
-  type: "incoming" as "incoming" | "outgoing",
-  category: "",
-  date: undefined as Date | undefined,
-  note: "",
-};
-
 interface Props {
   onAdd: () => void;
   setIsMutating: React.Dispatch<React.SetStateAction<boolean>>;
@@ -81,7 +72,14 @@ export function AddModal({ onAdd, setIsMutating }: Props) {
       note: transaction.note,
     });
 
-    setTransaction(initialTransaction);
+    setTransaction((prev) => ({
+      userId: prev.userId,
+      amount: "",
+      type: "incoming" as "incoming" | "outgoing",
+      category: "",
+      date: undefined as Date | undefined,
+      note: "",
+    }));
     onAdd();
   };
 

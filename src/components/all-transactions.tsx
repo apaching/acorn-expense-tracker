@@ -24,13 +24,18 @@ import { Transaction } from "@/types/types";
 import { useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { createClient } from "@/utils/supabase/client";
 import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 
 interface Props {
   userId: string;
 }
 
-function TransactionHistory({ userId }: Props) {
+function TransactionHistory() {
+  const [userId, setUserId] = useState<string | null>(null);
+
+  console.log(userId);
+
   const ITEMS_PER_PAGE = 12;
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -59,6 +64,20 @@ function TransactionHistory({ userId }: Props) {
       setTotalPages(pages);
     }
   }, [data]);
+
+  // TODO: check initial transaction
+
+  useEffect(() => {
+    const supabase = createClient();
+
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUserId(user?.id ?? null);
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log("User ID:", userId);
+  }, [userId]);
 
   return (
     <Card className="flex h-full flex-col">
