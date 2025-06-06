@@ -27,10 +27,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { createClient } from "@/utils/supabase/client";
 import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 
-interface Props {
-  userId: string;
-}
-
 function TransactionHistory() {
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -64,8 +60,6 @@ function TransactionHistory() {
       setTotalPages(pages);
     }
   }, [data]);
-
-  // TODO: check initial transaction
 
   useEffect(() => {
     const supabase = createClient();
