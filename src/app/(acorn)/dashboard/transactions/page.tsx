@@ -9,9 +9,9 @@ export default async function Transactions() {
   } = await supabase.auth.getUser();
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex h-screen flex-col">
       <div className="flex-1 overflow-hidden px-10 py-20">
-        <TransactionHistory userId={user?.id as string} />
+        <TransactionHistory />
       </div>
     </div>
   );
