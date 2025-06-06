@@ -19,6 +19,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { AddModal } from "./add-modal";
+import { PuffLoader } from "react-spinners";
 import { Transaction } from "@/types/types";
 import { useEffect, useState } from "react";
 import { capitalizeFirstLetter } from "@/lib/utils";
@@ -33,6 +34,7 @@ function TransactionHistory({ userId }: Props) {
   const ITEMS_PER_PAGE = 12;
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isMutating, setIsMutating] = useState(false);
 
   const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -40,8 +42,16 @@ function TransactionHistory({ userId }: Props) {
     userId
       ? `/api/transactions?userId=${userId}&page=${page}&limit=${ITEMS_PER_PAGE}`
       : null,
-    fetcher
+    fetcher,
   );
+
+  const handleMutate = async () => {
+    try {
+      await mutate();
+    } finally {
+      setIsMutating(false);
+    }
+  };
 
   useEffect(() => {
     if (data?.total) {
@@ -51,16 +61,16 @@ function TransactionHistory({ userId }: Props) {
   }, [data]);
 
   return (
-    <Card className="h-full flex flex-col">
+    <Card className="flex h-full flex-col">
       <CardHeader>
         <CardTitle>
           <div className="flex flex-row justify-between">
             <span>Transaction History</span>
-            <AddModal onAdd={mutate} />
+            <AddModal onAdd={handleMutate} setIsMutating={setIsMutating} />
           </div>
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 overflow-y-auto">
+      <CardContent className="relative flex-1 overflow-y-auto">
         <Table>
           <TableHeader>
             <TableRow>
@@ -87,7 +97,7 @@ function TransactionHistory({ userId }: Props) {
                       <Skeleton className="h-4 w-32" />
                     </TableCell>
                     <TableCell className="text-right">
-                      <Skeleton className="h-4 w-24 ml-auto" />
+                      <Skeleton className="ml-auto h-4 w-24" />
                     </TableCell>
                   </TableRow>
                 ))
@@ -95,7 +105,7 @@ function TransactionHistory({ userId }: Props) {
                   <TableRow key={transaction.id}>
                     <TableCell>
                       <div className="flex flex-col">
-                        <span className="font-medium text-sm">
+                        <span className="text-sm font-medium">
                           {transaction.category}
                         </span>
                         <span
@@ -124,6 +134,11 @@ function TransactionHistory({ userId }: Props) {
                 ))}
           </TableBody>
         </Table>
+        {isMutating && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center">
+            <PuffLoader size="90" color="white" speedMultiplier={2} />
+          </div>
+        )}
       </CardContent>
       <Pagination>
         <PaginationContent>

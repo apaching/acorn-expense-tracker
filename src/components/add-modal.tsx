@@ -39,9 +39,10 @@ const initialTransaction = {
 
 interface Props {
   onAdd: () => void;
+  setIsMutating: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function AddModal({ onAdd }: Props) {
+export function AddModal({ onAdd, setIsMutating }: Props) {
   const supabase = createClient();
 
   const [open, setOpen] = useState(false);
@@ -68,6 +69,9 @@ export function AddModal({ onAdd }: Props) {
       return;
     }
 
+    setOpen(false);
+    setIsMutating(true);
+
     await addTransaction({
       user_id: transaction.userId!,
       amount: Number(transaction.amount),
@@ -78,7 +82,6 @@ export function AddModal({ onAdd }: Props) {
     });
 
     setTransaction(initialTransaction);
-    setOpen(false);
     onAdd();
   };
 
@@ -100,7 +103,7 @@ export function AddModal({ onAdd }: Props) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Plus className="text-primary-foreground size-3" />
+          <Plus className="size-3 text-primary-foreground" />
           <span>New Transaction</span>
         </Button>
       </DialogTrigger>
@@ -170,7 +173,7 @@ export function AddModal({ onAdd }: Props) {
                     ).map((category) => (
                       <div
                         key={category.category}
-                        className="flex flex-row items-center px-2 gap-1"
+                        className="flex flex-row items-center gap-1 px-2"
                       >
                         <category.icon className="size-5" />
                         <SelectItem value={category.category}>
@@ -184,7 +187,7 @@ export function AddModal({ onAdd }: Props) {
             </div>
           </div>
           <div className="grid grid-cols-4 items-start gap-4">
-            <Label htmlFor="date" className="text-right pt-2">
+            <Label htmlFor="date" className="pt-2 text-right">
               Date
             </Label>
             <div className="col-span-3">
