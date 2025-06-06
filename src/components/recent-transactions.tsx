@@ -24,7 +24,7 @@ async function RecentTransactions({ userId }: Props) {
     .select("*")
     .eq("user_id", userId)
     .order("date", { ascending: false })
-    .limit(8);
+    .limit(5);
 
   return (
     <Card className="h-full">
