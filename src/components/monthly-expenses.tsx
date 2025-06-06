@@ -38,10 +38,6 @@ async function MonthlyExpensesChart({ userId }: Props) {
     });
   }
 
-  // todo separate incoming and outgoing
-
-  console.log(transactionsByMonth);
-
   return (
     <BarChartClient
       jan={transactionsByMonth.get(1)}
