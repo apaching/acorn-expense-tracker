@@ -1,3 +1,8 @@
+export interface User {
+  id: string;
+  name: string;
+}
+
 export interface Transaction {
   id: string;
   user_id: string;
