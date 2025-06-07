@@ -30,8 +30,6 @@ import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
 function TransactionHistory() {
   const [userId, setUserId] = useState<string | null>(null);
 
-  console.log(userId);
-
   const ITEMS_PER_PAGE = 12;
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -68,10 +66,6 @@ function TransactionHistory() {
       setUserId(user?.id ?? null);
     });
   }, []);
-
-  useEffect(() => {
-    console.log("User ID:", userId);
-  }, [userId]);
 
   return (
     <Card className="flex h-full flex-col">
