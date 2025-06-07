@@ -12,6 +12,7 @@ export function LoginForm() {
   const router = useRouter();
 
   const [formData, setFormdata] = useState({ email: "", password: "" });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
