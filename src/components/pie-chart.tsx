@@ -94,6 +94,18 @@ async function ExpensesChart({ userId }: Props) {
     ?.filter((transaction) => transaction.category === "Others")
     .reduce((sum, transaction) => sum + transaction.amount, 0);
 
+  if (
+    foods_and_drinks === 0 &&
+    transport === 0 &&
+    groceries === 0 &&
+    bills === 0 &&
+    luxury === 0 &&
+    healthcare === 0 &&
+    others === 0
+  ) {
+    return <EmptyExpensesChart />;
+  }
+
   return (
     <ExpensesChartClient
       f_and_d={foods_and_drinks}
