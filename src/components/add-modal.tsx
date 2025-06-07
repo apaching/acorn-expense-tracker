@@ -48,6 +48,17 @@ export function AddModal({ onAdd, setIsMutating }: Props) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (field: keyof typeof transaction, value: any) => {
+    if (field === "date" && value instanceof Date) {
+      const now = new Date();
+      value.setHours(
+        now.getHours(),
+        now.getMinutes(),
+        now.getSeconds(),
+        now.getMilliseconds(),
+      );
+      console.log("With time:", value);
+    }
+
     setTransaction((prev) => ({
       ...prev,
       [field]: value,
